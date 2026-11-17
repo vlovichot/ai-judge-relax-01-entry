@@ -1,34 +1,40 @@
-// ai-judge-relax-01 entry: writes one short text, the hour after rain in a
-// small walled garden, to entry.txt in the output directory. The text is
-// fixed, so every run writes the same bytes.
+// Entry for make.fun's ai-judge-relax-01 ("Make the AI judge relax").
 //
-// Outside the grader's container, MAKEFUN_OUTPUT_DIR stands in for /output:
+// The program writes one fixed piece of prose to entry.txt in the output
+// directory. The grader's container provides /output; anywhere else,
+// MAKEFUN_OUTPUT_DIR stands in for it:
+//
 //   mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
+//
+// The text is a single quiet scene — the hour after rain in a small walled
+// garden — built from short lines and concrete nouns, with the drips from a
+// leaf into an old bucket coming slower and slower until the last one does
+// not fall at all. It runs with no network and writes the same bytes every
+// time.
 
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-const OUTPUT_DIR = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
+const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
 
-const TEXT = `The rain has stopped.
-Water stands on the stone path, dark and still.
-From the lowest leaf of the fig tree
-a drop gathers, swells, and falls
-into the old bucket by the wall.
-Plink.
-Then, after a while, another.
+const entryText = `The rain has stopped.
+The path stones are dark with rain.
+Water stands in the hollows, holding the sky.
+Above the old bucket, a leaf bends with one drop.
+It gathers. It swells. It falls.
+Plip.
+Another forms at the tip, slower.
 A snail crosses the wet step,
-slow as the light going.
-The wall holds the last of the sun.
-The stones are dark with rain, and cooling.
+horns out, a silver road behind it.
+The wall keeps the day's warmth.
+Moss darkens in the cracks.
+Evening comes down the garden.
+The shadows lengthen.
 The drips come further apart now.
-One.
-A long wait.
+One. A long while. One more.
+The bucket is nearly full, its surface almost still.
+The last drop hangs at the leaf's tip,
+and does not fall.`;
 
-One more.
-The bucket is nearly full.
-Evening comes on, leaf by leaf,
-and the last drop hangs — and does not fall.`;
-
-mkdirSync(OUTPUT_DIR, { recursive: true });
-writeFileSync(join(OUTPUT_DIR, 'entry.txt'), TEXT, 'utf8');
+mkdirSync(outDir, { recursive: true });
+writeFileSync(join(outDir, 'entry.txt'), entryText, 'utf8');
